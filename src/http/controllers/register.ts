@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-import { EmailAlreadyInUseError } from '@/errors/email-already-in-use-error';
+import { EmailAlreadyInUseError } from '@/services/errors/email-already-in-use-error';
 import { RegisterService } from '@/services/register';
 import { PrismaUsersRepository } from '../../repositories/prisma/prisma-users-repository';
 

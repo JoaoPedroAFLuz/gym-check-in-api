@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs';
 import { describe, expect, it } from 'vitest';
 
-import { EmailAlreadyInUseError } from '@/errors/email-already-in-use-error';
+import { EmailAlreadyInUseError } from '@/services/errors/email-already-in-use-error';
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
 import { RegisterService } from '@/services/register';
 
@@ -36,13 +36,13 @@ describe('Register Service', () => {
       password: '12345678',
     });
 
-    expect(async () => {
-      await registerService.execute({
+    await expect(() =>
+      registerService.execute({
         name: 'John Doe',
         email,
         password: '12345678',
-      });
-    }).rejects.toBeInstanceOf(EmailAlreadyInUseError);
+      })
+    ).rejects.toBeInstanceOf(EmailAlreadyInUseError);
   });
 
   it('should not be able to register an user', async () => {

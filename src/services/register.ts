@@ -2,7 +2,7 @@ import { hash } from 'bcryptjs';
 import { User } from '@prisma/client';
 
 import { UsersRepository } from '@/repositories/users-repository';
-import { EmailAlreadyInUseError } from '@/errors/email-already-in-use-error';
+import { EmailAlreadyInUseError } from '@/services/errors/email-already-in-use-error';
 
 interface RegisterServiceRequest {
   name: string;

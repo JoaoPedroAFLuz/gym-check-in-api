@@ -1,25 +1,14 @@
 import { compare } from 'bcryptjs';
 import { describe, expect, it } from 'vitest';
 
+import { EmailAlreadyInUseError } from '@/errors/email-already-in-use-error';
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
 import { RegisterService } from '@/services/register';
 
 describe('Register Service', () => {
   it('should hash user password upon registration', async () => {
-    const registerService = new RegisterService({
-      async findByEmail() {
-        return null;
-      },
-
-      async create(data) {
-        return {
-          id: 'user-1',
-          name: data.name,
-          email: data.email,
-          password_hash: data.password_hash,
-          created_at: new Date(),
-        };
-      },
-    });
+    const usersRepository = new InMemoryUsersRepository();
+    const registerService = new RegisterService(usersRepository);
 
     const { user } = await registerService.execute({
       name: 'John Doe',
@@ -33,5 +22,39 @@ describe('Register Service', () => {
     );
 
     expect(isPasswordCorrectlyHashed).toBe(true);
+  });
+
+  it('should not be able to register an user with an e-mail already in use', async () => {
+    const usersRepository = new InMemoryUsersRepository();
+    const registerService = new RegisterService(usersRepository);
+
+    const email = 'johndoe@example.com';
+
+    await registerService.execute({
+      name: 'John Doe',
+      email,
+      password: '12345678',
+    });
+
+    expect(async () => {
+      await registerService.execute({
+        name: 'John Doe',
+        email,
+        password: '12345678',
+      });
+    }).rejects.toBeInstanceOf(EmailAlreadyInUseError);
+  });
+
+  it('should not be able to register an user', async () => {
+    const usersRepository = new InMemoryUsersRepository();
+    const registerService = new RegisterService(usersRepository);
+
+    const { user } = await registerService.execute({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: '12345678',
+    });
+
+    expect(user.id).toEqual(expect.any(String));
   });
 });

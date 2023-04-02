@@ -29,7 +29,7 @@ describe('Authenticate Service', () => {
     expect(isPasswordCorrectlyHashed).toBe(true);
   });
 
-  it('should not be able to authenticate with a non registered user', async () => {
+  it('should not be able to authenticate a non registered user', async () => {
     const usersRepository = new InMemoryUsersRepository();
     const sut = new AuthenticateService(usersRepository);
 

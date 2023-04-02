@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs';
 
 import { UsersRepository } from '@/repositories/users-repository';
+import { EmailAlreadyInUseError } from '@/errors/email-already-in-use-error';
 
 interface RegisterServiceRequest {
   name: string;
@@ -15,7 +16,7 @@ export class RegisterService {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
     if (userWithSameEmail) {
-      throw new Error('E-mail already in use');
+      throw new EmailAlreadyInUseError();
     }
 
     const password_hash = await hash(password, 6);

@@ -14,6 +14,16 @@ describe('Register Service', () => {
     sut = new RegisterService(usersRepository);
   });
 
+  it('should be able to register an user', async () => {
+    const { user } = await sut.execute({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: '12345678',
+    });
+
+    expect(user.id).toEqual(expect.any(String));
+  });
+
   it('should hash user password upon registration', async () => {
     const { user } = await sut.execute({
       name: 'John Doe',
@@ -45,15 +55,5 @@ describe('Register Service', () => {
         password: '12345678',
       })
     ).rejects.toBeInstanceOf(EmailAlreadyInUseError);
-  });
-
-  it('should not be able to register an user', async () => {
-    const { user } = await sut.execute({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '12345678',
-    });
-
-    expect(user.id).toEqual(expect.any(String));
   });
 });

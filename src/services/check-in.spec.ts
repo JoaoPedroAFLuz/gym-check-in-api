@@ -4,24 +4,26 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { InMemoryGymsRepository } from '@/repositories/in-memory/gyms-repository-in-memory';
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository';
 import { CheckInService } from './check-in';
+import { MaxDistanceError } from './errors/max-distance-error';
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins';
 
 let checkInsRepository: InMemoryCheckInsRepository;
 let gymsRepository: InMemoryGymsRepository;
 let sut: CheckInService;
 
 describe('Check-in Service', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository();
     gymsRepository = new InMemoryGymsRepository();
     sut = new CheckInService(checkInsRepository, gymsRepository);
 
-    gymsRepository.items.push({
+    gymsRepository.create({
       id: 'gym-01',
       title: 'Gym 01',
       description: '',
       phone: '',
-      latitude: new Decimal(-14.8765089),
-      longitude: new Decimal(-40.8091836),
+      latitude: -14.8765089,
+      longitude: -40.8091836,
     });
 
     vi.useFakeTimers();
@@ -59,7 +61,7 @@ describe('Check-in Service', () => {
         userLatitude: -14.8765089,
         userLongitude: -40.8091836,
       })
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError);
   });
 
   it('should be able to check in twice in different days', async () => {
@@ -101,6 +103,6 @@ describe('Check-in Service', () => {
         userLatitude: -14.8765089,
         userLongitude: -40.8091836,
       })
-    ).rejects.toBeInstanceOf(Error);
+    ).rejects.toBeInstanceOf(MaxDistanceError);
   });
 });

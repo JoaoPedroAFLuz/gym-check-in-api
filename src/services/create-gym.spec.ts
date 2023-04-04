@@ -3,13 +3,13 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryGymsRepository } from '@/repositories/in-memory/gyms-repository-in-memory';
 import { CreateGymService } from './create-gym';
 
-let usersRepository: InMemoryGymsRepository;
+let gymsRepository: InMemoryGymsRepository;
 let sut: CreateGymService;
 
 describe('Create Gym Service', () => {
   beforeEach(() => {
-    usersRepository = new InMemoryGymsRepository();
-    sut = new CreateGymService(usersRepository);
+    gymsRepository = new InMemoryGymsRepository();
+    sut = new CreateGymService(gymsRepository);
   });
 
   it('should be able to create a gym', async () => {

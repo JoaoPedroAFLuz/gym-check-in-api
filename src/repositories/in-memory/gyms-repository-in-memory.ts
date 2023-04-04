@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 
 import { Gym, Prisma } from '@prisma/client';
 import { GymsRepository } from '../gyms-repository';
-import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-cordinates';
+import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates';
 
 export class InMemoryGymsRepository implements GymsRepository {
   public items: Gym[] = [];

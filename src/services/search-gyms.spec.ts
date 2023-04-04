@@ -17,16 +17,16 @@ describe('Search Gyms Service', () => {
       title: 'JavaScript Gym',
       description: null,
       phone: null,
-      latitude: -14.8765089,
-      longitude: -40.8091836,
+      latitude: -14.876764449163613,
+      longitude: -40.81731171746395,
     });
 
     await gymsRepository.create({
       title: 'TypeScript Gym',
       description: null,
       phone: null,
-      latitude: -14.8765089,
-      longitude: -40.8091836,
+      latitude: -14.876764449163613,
+      longitude: -40.81731171746395,
     });
 
     const { gyms } = await sut.execute({

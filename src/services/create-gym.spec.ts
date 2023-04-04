@@ -17,8 +17,8 @@ describe('Create Gym Service', () => {
       title: 'gym-01',
       description: null,
       phone: null,
-      latitude: -14.8765089,
-      longitude: -40.8091836,
+      latitude: -14.876764449163613,
+      longitude: -40.81731171746395,
     });
 
     expect(gym.id).toEqual(expect.any(String));

@@ -22,8 +22,8 @@ describe('Check-in Service', () => {
       title: 'Gym 01',
       description: '',
       phone: '',
-      latitude: -14.8765089,
-      longitude: -40.8091836,
+      latitude: -14.876764449163613,
+      longitude: -40.81731171746395,
     });
 
     vi.useFakeTimers();
@@ -37,8 +37,8 @@ describe('Check-in Service', () => {
     const { checkIn } = await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: -14.8765089,
-      userLongitude: -40.8091836,
+      userLatitude: -14.876764449163613,
+      userLongitude: -40.81731171746395,
     });
 
     expect(checkIn.id).toEqual(expect.any(String));
@@ -50,16 +50,16 @@ describe('Check-in Service', () => {
     await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: -14.8765089,
-      userLongitude: -40.8091836,
+      userLatitude: -14.876764449163613,
+      userLongitude: -40.81731171746395,
     });
 
     await expect(() =>
       sut.execute({
         userId: 'user-01',
         gymId: 'gym-01',
-        userLatitude: -14.8765089,
-        userLongitude: -40.8091836,
+        userLatitude: -14.876764449163613,
+        userLongitude: -40.81731171746395,
       })
     ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError);
   });
@@ -70,8 +70,8 @@ describe('Check-in Service', () => {
     await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: -14.8765089,
-      userLongitude: -40.8091836,
+      userLatitude: -14.876764449163613,
+      userLongitude: -40.81731171746395,
     });
 
     vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0));
@@ -79,29 +79,29 @@ describe('Check-in Service', () => {
     const { checkIn } = await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: -14.8765089,
-      userLongitude: -40.8091836,
+      userLatitude: -14.876764449163613,
+      userLongitude: -40.81731171746395,
     });
 
     expect(checkIn.id).toEqual(expect.any(String));
   });
 
   it('should not be able to check in on distant gym', async () => {
-    gymsRepository.items.push({
+    gymsRepository.create({
       id: 'gym-02',
       title: 'Gym 02',
       description: '',
       phone: '',
-      latitude: new Decimal(-14.9076689),
-      longitude: new Decimal(-40.844556),
+      latitude: new Decimal(-14.89313647685275),
+      longitude: new Decimal(-40.84470764519978),
     });
 
     await expect(() =>
       sut.execute({
         userId: 'user-01',
         gymId: 'gym-02',
-        userLatitude: -14.8765089,
-        userLongitude: -40.8091836,
+        userLatitude: -14.876764449163613,
+        userLongitude: -40.81731171746395,
       })
     ).rejects.toBeInstanceOf(MaxDistanceError);
   });

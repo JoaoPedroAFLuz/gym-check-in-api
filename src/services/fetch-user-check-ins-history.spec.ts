@@ -6,7 +6,7 @@ import { FetchUserCheckInsHistoryService } from './fetch-user-check-ins-history'
 let checkInsRepository: InMemoryCheckInsRepository;
 let sut: FetchUserCheckInsHistoryService;
 
-describe('Fetch User Check-ins History', () => {
+describe('Fetch User Check-ins History Service', () => {
   beforeEach(() => {
     checkInsRepository = new InMemoryCheckInsRepository();
     sut = new FetchUserCheckInsHistoryService(checkInsRepository);

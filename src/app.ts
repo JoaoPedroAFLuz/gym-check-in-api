@@ -21,12 +21,6 @@ app.setErrorHandler((error, _, reply) => {
       .send({ message: 'Validation error,', issues: error.format() });
   }
 
-  if (error.name === 'FastifyError') {
-    return reply
-      .status(error.statusCode ?? 500)
-      .send({ message: error.message });
-  }
-
   if (env.NODE_ENV !== 'production') {
     console.error(error);
   } else {

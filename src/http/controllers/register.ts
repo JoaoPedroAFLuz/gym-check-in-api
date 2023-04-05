@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 import { EmailAlreadyInUseError } from '@/services/errors/email-already-in-use-error';
-import { makeRegistrationService } from '@/services/factories/make-register-service';
+import { makeRegisterService } from '@/services/factories/make-register-service';
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -14,7 +14,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   const { name, email, password } = registerBodySchema.parse(request.body);
 
   try {
-    const registerService = makeRegistrationService();
+    const registerService = makeRegisterService();
 
     await registerService.execute({ name, email, password });
   } catch (error) {

@@ -16,7 +16,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
     const registerService = makeRegisterService();
 
-    await registerService.execute({ name, email, password });
+    const { user } = await registerService.execute({ name, email, password });
+
+    return reply.status(201).send({ user });
   } catch (error) {
     if (error instanceof EmailAlreadyInUseError) {
       return reply.status(409).send({ error: error.message });
@@ -24,6 +26,4 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
     throw error;
   }
-
-  return reply.status(201).send();
 }

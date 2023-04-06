@@ -21,7 +21,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
   const createGymService = makeCreateGymService();
 
-  const gym = await createGymService.execute({
+  const { gym } = await createGymService.execute({
     title,
     description,
     phone,
@@ -29,5 +29,5 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     longitude,
   });
 
-  return reply.status(201).send(gym);
+  return reply.status(201).send({ gym });
 }

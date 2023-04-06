@@ -2,9 +2,10 @@ import fastify from 'fastify';
 
 import { ZodError } from 'zod';
 
-import { appRoutes } from './http/routes';
+import { usersRoutes } from './http/controllers/users/routes';
 import { env } from './env';
 import fastifyJwt from '@fastify/jwt';
+import { gymsRoutes } from './http/controllers/gyms/routes';
 
 export const app = fastify();
 
@@ -12,7 +13,8 @@ app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 });
 
-app.register(appRoutes);
+app.register(usersRoutes);
+app.register(gymsRoutes);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

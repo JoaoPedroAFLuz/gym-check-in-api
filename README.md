@@ -1,6 +1,6 @@
 # App
 
- GymPass style app.
+ API para aplicações no estilo do GymPass para realizar check-ins em academias.
 
  ## RFs (Requisitos funcionais)
 

@@ -30,7 +30,7 @@ describe('Search Gyms Service', () => {
     });
 
     const { gyms } = await sut.execute({
-      name: 'typescript',
+      query: 'typescript',
       page: 1,
     });
 
@@ -52,7 +52,7 @@ describe('Search Gyms Service', () => {
     }
 
     const { gyms } = await sut.execute({
-      name: 'javascript',
+      query: 'javascript',
       page: 2,
     });
 

@@ -5,7 +5,7 @@ import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
 
-describe('Get check-ins history (e2e)', async () => {
+describe('Check-in History (e2e)', async () => {
   beforeAll(async () => {
     await app.ready();
   });
